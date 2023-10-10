@@ -1,0 +1,24 @@
+﻿@model jannat.Models.Signup
+@{
+    ViewBag.Title = "Signup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Signup</h2>
+
+@if (Model != null)
+{
+    <h4>@Model.Username</h4>
+    <h4>@Model.Password</h4>
+    <h4>@Model.ConfirmPassword</h4>
+}
+
+@*@Html.ValidationSummary()*@
+<form method="post">
+    <input type="text" value="@(Model != null ? Model.Username : "")" name="Username" class="form-control" placeholder="Username" />@Html.ValidationMessage("Username")
+    <input type="password" value="@(Model != null ? Model.Password : "")" name="Password" class="form-control" placeholder="Password" />@Html.ValidationMessage("Password")
+    <input type="password" value="@(Model != null ? Model.ConfirmPassword : "")" name="ConfirmPassword" class="form-control" placeholder="Confirm Password" />@Html.ValidationMessage("ConfirmPassword")
+    <input type="submit" value="Signup" class="btn btn-primary" />
+</form>
+
+

@@ -1,0 +1,42 @@
+﻿@model BuyProduct.EF.Product
+
+@{
+    ViewBag.Title = "AddToCart";
+}
+
+<h2>AddToCart</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h4>Product</h4>
+        <hr />
+
+        @Html.HiddenFor(model => model.id)
+
+        <div>
+            @Html.LabelFor(model => model.Name)
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Price)
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.CId)
+            @Html.EditorFor(model => model.CId, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div>
+            <input type="submit" value="Confirm" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

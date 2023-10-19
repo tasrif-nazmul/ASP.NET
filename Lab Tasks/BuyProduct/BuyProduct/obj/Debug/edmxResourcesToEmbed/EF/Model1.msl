@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProCatModelStoreContainer" CdmEntityContainer="ProCatEntities">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="ProCatModel.Category">
+        <MappingFragment StoreEntitySet="Categories">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ColdIteam" ColumnName="ColdIteam" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="ProCatModel.Product">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="CId" ColumnName="CId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Regesters">
+      <EntityTypeMapping TypeName="ProCatModel.Regester">
+        <MappingFragment StoreEntitySet="Regesters">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AddToCarts">
+      <EntityTypeMapping TypeName="ProCatModel.AddToCart">
+        <MappingFragment StoreEntitySet="AddToCart">
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

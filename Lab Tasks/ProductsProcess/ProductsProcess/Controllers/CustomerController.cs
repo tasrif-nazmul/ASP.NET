@@ -52,5 +52,41 @@ namespace ProductsProcess.Controllers
             }
             
         }
+
+        [HttpGet]
+        public ActionResult AddToCart(int id)
+        {
+            if (Session["CustomerID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                var db = new ProductsProcessEntities3();
+                var productToAdd = (from d in db.Products where d.ProductID == id select d).SingleOrDefault();
+                List<Product> cart = Session["Cart"] as List<Product> ?? new List<Product>();
+
+                if (productToAdd != null)
+                {
+                    cart.Add(productToAdd);
+                    Session["Cart"] = cart;
+                }
+                return View(cart);
+            }
+            
+        }
+
+        [HttpPost]
+        public ActionResult AddToCart(Product p)
+        {
+            if (Session["CustomerID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                return View();
+            }
+        }
     }
 }

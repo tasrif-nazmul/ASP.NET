@@ -4,6 +4,7 @@
 }
 
 <h2>ViewCart</h2>
+<a href="/Customer/ViewProduct/" class="btn btn-danger">Back to Product</a>
 
 
 <table class="table">
@@ -11,6 +12,7 @@
         <th>Product Name</th>
         <th>Description</th>
         <th>Price</th>
+        <th>Delete</th>
     </tr>
     @foreach (var product in Model)
     {
@@ -19,6 +21,10 @@
             <td>@product.Name</td>
             <td>@product.Description</td>
             <td>@product.Price</td>
+            <td>@Html.ActionLink("Delete", "CancelFromCart", new { id = product.ProductID }, new { @class = "btn btn-danger" })</td>
+            @*<td>
+                <input type="number" name="quantity" value="1" min="1" class="btn btn-outline-secondary"/>
+            </td>*@
         </tr>
     }
 </table>

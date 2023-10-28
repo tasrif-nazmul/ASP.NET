@@ -245,7 +245,7 @@
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Customer\ViewProduct.cshtml" />
     <Content Include="Views\Customer\Login.cshtml" />
-    <Content Include="Views\Customer\AddToCart.cshtml" />
+    <Content Include="Views\Customer\AdddToCart.cshtml" />
     <Content Include="Views\Admin\Regester.cshtml" />
     <Content Include="Views\Customer\Regester.cshtml" />
     <Content Include="Views\Customer\ViewCart.cshtml" />

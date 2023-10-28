@@ -19,9 +19,6 @@
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryID)
-        </th>
         <th></th>
     </tr>
 
@@ -34,10 +31,7 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryID)
+            <span>$</span> @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
             @Html.ActionLink("Add To Cart", "AddToCart", new { id=item.ProductID }, new { @class = "btn btn-primary" })

@@ -117,7 +117,8 @@ namespace ProductsProcess.Controllers
                     cart.Add(productToAdd);
                     Session["Cart"] = cart;
                 }
-                return View(cart);
+                //return View(cart);
+                return RedirectToAction("ViewProduct");
             }
             
         }
@@ -161,7 +162,7 @@ namespace ProductsProcess.Controllers
 
                 cart.Remove(productToRemove);
                 Session["Cart"] = cart;
-                return RedirectToAction("ViewProduct");
+                return RedirectToAction("ViewCart");
             }
         }
 

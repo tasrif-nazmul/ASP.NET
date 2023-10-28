@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -22,6 +23,51 @@ namespace ProductsProcess.Controllers
                 return View();
             }
 
+        }
+
+        [HttpGet]
+        public ActionResult Regester()
+        {
+            var db = new ProductsProcessEntities3();
+            return View();
+        }
+        
+        
+        [HttpPost]
+        public ActionResult Regester(Admin a)
+        {
+            var db = new ProductsProcessEntities3();
+
+            string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+
+            if (string.IsNullOrWhiteSpace(a.Name) || string.IsNullOrWhiteSpace(a.Email) || string.IsNullOrWhiteSpace(a.Password))
+            {
+                ModelState.AddModelError("", "Must be filled all information");
+            }
+
+            else
+            {
+
+
+                if (!Regex.IsMatch(a.Password, passwordPattern))
+                {
+                    ModelState.AddModelError("Password", "Password must contain at least 1 capital letter, 1 small letter, 1 special character, 1 number, and be at least 8 characters long.");
+                }
+
+                if (db.Admins.Any(x => x.Email == a.Email))
+                {
+                    ModelState.AddModelError("Email", "This Email already taken");
+                }
+            }
+            if (ModelState.IsValid)
+            {
+
+                db.Admins.Add(a);
+                db.SaveChanges();
+                return RedirectToAction("Login");
+             }
+
+            return View(a);
         }
 
         [HttpGet]

@@ -35,7 +35,8 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.ActionLink("Processs", "Process", new { id=item.ProductID}, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Processs", "Process", new { id = item.ProductID }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Cancel", "CancelFromCart", new { id = item.ProductID }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }

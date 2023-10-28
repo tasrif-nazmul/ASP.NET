@@ -1,4 +1,5 @@
-﻿using ProductsProcess.EF;
+﻿using Microsoft.Ajax.Utilities;
+using ProductsProcess.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,52 @@ namespace ProductsProcess.Controllers
 {
     public class CustomerController : Controller
     {
-      
+
+        [HttpGet]
+        public ActionResult Regester()
+        {
+            var db = new ProductsProcessEntities3();
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Regester(Customer c)
+        {
+            var db = new ProductsProcessEntities3();
+
+            string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+
+            if (string.IsNullOrWhiteSpace(c.Name) || string.IsNullOrWhiteSpace(c.Username) || string.IsNullOrWhiteSpace(c.Password))
+            {
+                ModelState.AddModelError("", "Must be filled all information");
+            }
+
+            else
+            {
+
+
+                if (!Regex.IsMatch(c.Password, passwordPattern))
+                {
+                    ModelState.AddModelError("Password", "Password must contain at least 1 capital letter, 1 small letter, 1 special character, 1 number, and be at least 8 characters long.");
+                }
+
+                if (db.Customers.Any(x => x.Username == c.Username))
+                {
+                    ModelState.AddModelError("Username", "This Username already taken");
+                }
+            }
+
+            if(ModelState.IsValid)
+            {
+                db.Customers.Add(c);
+                db.SaveChanges();
+                return RedirectToAction("Login");
+            }
+
+            return View(c);
+        }
+
 
         [HttpGet]
         public ActionResult Login()
@@ -88,5 +134,36 @@ namespace ProductsProcess.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public ActionResult ViewCart()
+        {
+            if (Session["CustomerID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            List<Product> cart = Session["Cart"] as List<Product> ?? new List<Product>();
+            return View(cart);
+        }
+
+
+        public ActionResult CancelFromCart(int id)
+        {
+            if (Session["CustomerID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                var cart = Session["Cart"] as List<Product> ?? new List<Product>();
+                var productToRemove = cart.FirstOrDefault(p => p.ProductID == id);
+
+                cart.Remove(productToRemove);
+                Session["Cart"] = cart;
+                return RedirectToAction("ViewProduct");
+            }
+        }
+
     }
 }

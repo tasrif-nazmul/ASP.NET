@@ -5,6 +5,7 @@
 }
 
 <h2>ViewProduct</h2>
+<a href="/Customer/ViewCart/" class="btn btn-info">View Carts</a>
 
 
 <table class="table">
@@ -40,6 +41,7 @@
         </td>
         <td>
             @Html.ActionLink("Add To Cart", "AddToCart", new { id=item.ProductID }, new { @class = "btn btn-primary" })
+           
         </td>
     </tr>
 }

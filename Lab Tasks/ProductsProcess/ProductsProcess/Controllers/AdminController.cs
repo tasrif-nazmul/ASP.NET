@@ -28,7 +28,7 @@ namespace ProductsProcess.Controllers
         [HttpGet]
         public ActionResult Regester()
         {
-            var db = new ProductsProcessEntities3();
+            var db = new eCommerceEntities();
             return View();
         }
         
@@ -36,7 +36,7 @@ namespace ProductsProcess.Controllers
         [HttpPost]
         public ActionResult Regester(Admin a)
         {
-            var db = new ProductsProcessEntities3();
+            var db = new eCommerceEntities();
 
             string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
 
@@ -73,14 +73,14 @@ namespace ProductsProcess.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-                var db = new ProductsProcessEntities3();
+                var db = new eCommerceEntities();
                 return View(); 
         }
         
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
-            var db = new ProductsProcessEntities3();
+            var db = new eCommerceEntities();
             var matchs = db.Admins.FirstOrDefault(u => u.Email == email && u.Password == password);
 
             if (matchs != null) 
@@ -107,7 +107,7 @@ namespace ProductsProcess.Controllers
 
             else
             {
-                var db = new ProductsProcessEntities3();
+                var db = new eCommerceEntities();
                 return View();
             }
             
@@ -123,7 +123,7 @@ namespace ProductsProcess.Controllers
 
             else
             {
-                var db = new ProductsProcessEntities3();
+                var db = new eCommerceEntities();
                 db.Products.Add(p);
                 db.SaveChanges();
                 return RedirectToAction("ViewProduct");
@@ -138,7 +138,7 @@ namespace ProductsProcess.Controllers
             }
             else
             {
-                var db = new ProductsProcessEntities3();
+                var db = new eCommerceEntities();
                 var data = db.Products.ToList();
                 return View(data);
             }
@@ -155,7 +155,7 @@ namespace ProductsProcess.Controllers
 
             else
             {
-                var db = new ProductsProcessEntities3();
+                var db = new eCommerceEntities();
                 var exData = (from d in db.Products where d.ProductID == id select d).SingleOrDefault();
                 return View(exData);
             }
@@ -172,10 +172,11 @@ namespace ProductsProcess.Controllers
 
             else
             {
-                var db = new ProductsProcessEntities3();
+                var db = new eCommerceEntities();
                 var exData = db.Products.Find(p.ProductID);
                 exData.Name = p.Name;
                 exData.Price = p.Price;
+                exData.Quantity = p.Quantity;
                 exData.Description = p.Description;
                 db.SaveChanges();
                 return RedirectToAction("ViewProduct");
@@ -192,7 +193,7 @@ namespace ProductsProcess.Controllers
 
             else
             {
-                var db = new ProductsProcessEntities3();
+                var db = new eCommerceEntities();
                 var exData = db.Products.Find(id);
                 db.Products.Remove(exData);
                 db.SaveChanges();

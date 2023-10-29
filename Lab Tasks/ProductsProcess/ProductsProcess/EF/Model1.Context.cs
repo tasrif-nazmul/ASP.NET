@@ -13,10 +13,10 @@ namespace ProductsProcess.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProductsProcessEntities3 : DbContext
+    public partial class eCommerceEntities : DbContext
     {
-        public ProductsProcessEntities3()
-            : base("name=ProductsProcessEntities3")
+        public eCommerceEntities()
+            : base("name=eCommerceEntities")
         {
         }
     

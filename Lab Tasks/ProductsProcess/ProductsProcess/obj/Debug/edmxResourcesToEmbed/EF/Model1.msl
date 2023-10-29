@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ProductsProcessModelStoreContainer" CdmEntityContainer="ProductsProcessEntities3">
+  <EntityContainerMapping StorageEntityContainer="eCommerceModelStoreContainer" CdmEntityContainer="eCommerceEntities">
     <EntitySetMapping Name="Admins">
-      <EntityTypeMapping TypeName="ProductsProcessModel.Admin">
+      <EntityTypeMapping TypeName="eCommerceModel.Admin">
         <MappingFragment StoreEntitySet="Admins">
           <ScalarProperty Name="AdminID" ColumnName="AdminID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -12,15 +12,15 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Categories">
-      <EntityTypeMapping TypeName="ProductsProcessModel.Category">
+      <EntityTypeMapping TypeName="eCommerceModel.Category">
         <MappingFragment StoreEntitySet="Categories">
-          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="CategoyID" ColumnName="CategoyID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Customers">
-      <EntityTypeMapping TypeName="ProductsProcessModel.Customer">
+      <EntityTypeMapping TypeName="eCommerceModel.Customer">
         <MappingFragment StoreEntitySet="Customers">
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -30,7 +30,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="OrderIteams">
-      <EntityTypeMapping TypeName="ProductsProcessModel.OrderIteam">
+      <EntityTypeMapping TypeName="eCommerceModel.OrderIteam">
         <MappingFragment StoreEntitySet="OrderIteams">
           <ScalarProperty Name="OrderIteamID" ColumnName="OrderIteamID" />
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -40,7 +40,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="ProductsProcessModel.Order">
+      <EntityTypeMapping TypeName="eCommerceModel.Order">
         <MappingFragment StoreEntitySet="Orders">
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -50,12 +50,13 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Products">
-      <EntityTypeMapping TypeName="ProductsProcessModel.Product">
+      <EntityTypeMapping TypeName="eCommerceModel.Product">
         <MappingFragment StoreEntitySet="Products">
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
         </MappingFragment>
       </EntityTypeMapping>

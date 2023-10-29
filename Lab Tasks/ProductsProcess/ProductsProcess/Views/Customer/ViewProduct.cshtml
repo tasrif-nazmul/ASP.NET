@@ -19,6 +19,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
+        <th>
+            Product Limit
+        </th>
         <th></th>
     </tr>
 
@@ -31,7 +34,10 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            <span>$</span> @Html.DisplayFor(modelItem => item.Price)
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
         </td>
         <td>
             @Html.ActionLink("Add To Cart", "AddToCart", new { id=item.ProductID }, new { @class = "btn btn-primary" })

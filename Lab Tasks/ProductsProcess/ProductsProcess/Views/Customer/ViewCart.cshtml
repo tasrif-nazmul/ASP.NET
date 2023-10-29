@@ -12,6 +12,7 @@
         <th>Product Name</th>
         <th>Description</th>
         <th>Price</th>
+        <th>Quantity</th>
         <th>Delete</th>
     </tr>
     @foreach (var product in Model)
@@ -20,11 +21,13 @@
             @*<td>@product.ProductID</td>*@
             <td>@product.Name</td>
             <td>@product.Description</td>
-            <td>@product.Price</td>
+            <td><span>$</span> @product.Price</td>
+            @*<td>@product.Quantity</td>*@
+            <td>
+                <input type="number" name="quantity" value="@product.Quantity" min="1" class="btn btn-outline-secondary" />
+            </td>
             <td>@Html.ActionLink("Delete", "CancelFromCart", new { id = product.ProductID }, new { @class = "btn btn-danger" })</td>
-            @*<td>
-                <input type="number" name="quantity" value="1" min="1" class="btn btn-outline-secondary"/>
-            </td>*@
+
         </tr>
     }
 </table>

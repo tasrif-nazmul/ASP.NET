@@ -15,7 +15,7 @@ namespace ProductsProcess.Controllers
         [HttpGet]
         public ActionResult Regester()
         {
-            var db = new ProductsProcessEntities3();
+            var db = new eCommerceEntities();
             return View();
         }
 
@@ -23,7 +23,7 @@ namespace ProductsProcess.Controllers
         [HttpPost]
         public ActionResult Regester(Customer c)
         {
-            var db = new ProductsProcessEntities3();
+            var db = new eCommerceEntities();
 
             string passwordPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
 
@@ -68,7 +68,7 @@ namespace ProductsProcess.Controllers
         [HttpPost]
         public ActionResult Login(string username, string password)
         {
-            var db = new ProductsProcessEntities3();
+            var db = new eCommerceEntities();
             var match = db.Customers.FirstOrDefault(x => x.Username == username && x.Password == password);
             if (match != null) 
             {
@@ -92,7 +92,7 @@ namespace ProductsProcess.Controllers
             }
             else
             {
-                var db = new ProductsProcessEntities3();
+                var db = new eCommerceEntities();
                 var data = db.Products.ToList();
                 return View(data);
             }
@@ -108,20 +108,32 @@ namespace ProductsProcess.Controllers
             }
             else
             {
-                var db = new ProductsProcessEntities3();
+                var db = new eCommerceEntities();
                 var productToAdd = (from d in db.Products where d.ProductID == id select d).SingleOrDefault();
                 List<Product> cart = Session["Cart"] as List<Product> ?? new List<Product>();
 
-                if (productToAdd != null)
+                // Check if the product is already in the cart
+                var existingProduct = cart.FirstOrDefault(p => p.ProductID == id);
+                if (existingProduct != null)
                 {
-                    cart.Add(productToAdd);
-                    Session["Cart"] = cart;
+                    // If the product is in the cart, update its quantity
+                    existingProduct.Quantity++;
                 }
-                //return View(cart);
+                else
+                {
+                    // If the product is not in the cart, add it with quantity 1
+                    if (productToAdd != null)
+                    {
+                        productToAdd.Quantity = 1; // Set the initial quantity to 1
+                        cart.Add(productToAdd);
+                    }
+                }
+
+                Session["Cart"] = cart;
                 return RedirectToAction("ViewProduct");
             }
-            
         }
+
 
         [HttpPost]
         public ActionResult AddToCart(Product p)

@@ -20,7 +20,7 @@ namespace ProductsProcess.EF
             this.Products = new HashSet<Product>();
         }
     
-        public int CategoryID { get; set; }
+        public int CategoyID { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

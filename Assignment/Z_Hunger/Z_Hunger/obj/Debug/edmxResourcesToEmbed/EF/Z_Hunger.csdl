@@ -16,8 +16,8 @@
     </Key>
     <Property Name="CollectionRequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="IteamName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="ExpiredTime" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CreationTime" Type="DateTime" Nullable="false" />
+    <Property Name="ExpiredTime" Type="DateTime" Nullable="false" />
     <Property Name="RestaurantID" Type="Int32" Nullable="false" />
     <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Collecteds" Relationship="Self.FK_Collecteds_CollectionRequests" FromRole="CollectionRequests" ToRole="Collecteds" />
@@ -99,5 +99,16 @@
       <End Role="Restaurants" EntitySet="Restaurants" />
       <End Role="CollectionRequests" EntitySet="CollectionRequests" />
     </AssociationSet>
+    <EntitySet Name="sysdiagrams" EntityType="ZerooHungerModel.sysdiagram" />
   </EntityContainer>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
 </Schema>

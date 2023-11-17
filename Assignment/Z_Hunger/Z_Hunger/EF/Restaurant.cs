@@ -11,28 +11,25 @@ namespace Z_Hunger.EF
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+    //using System.ComponentModel.DataAnnotations;
 
     public partial class Restaurant
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Restaurant()
         {
+            this.Collecteds = new HashSet<Collected>();
             this.CollectionRequests = new HashSet<CollectionRequest>();
         }
     
         public int RestaurantID { get; set; }
-
-        [Required]
         public string RestauranEmail { get; set; }
-        [Required]
         public string Name { get; set; }
-        [Required]
         public string Password { get; set; }
-        [Required]
         public string ConfirmPass { get; set; }
-        [Required]
-
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Collected> Collecteds { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CollectionRequest> CollectionRequests { get; set; }
     }

@@ -49,46 +49,39 @@ namespace Z_Hunger.Controllers
          }*/
 
         [HttpPost]
-        public ActionResult RegesterRestaurant(Restaurant r)
+        public ActionResult RegesterRestaurant(Regestration r)
         {
             if (ModelState.IsValid)
             {
 
-                var db = new ZerooHungerEntities();
-                if(db.Restaurants.Any(s=> s.RestauranEmail == r.RestauranEmail))
+                var db = new ZeroHungerEntities1();
+                if(db.Regestrations.Any(s=> s.Email== r.Email))
                 {
                     ModelState.AddModelError("RestauranEmail", "This Email already used, try another Email");
                     return View(r);
                 }
 
-                if (r.Password != r.ConfirmPass)
-                {
-                    ModelState.AddModelError("ConfirmPass", "Must be the same as Password");
-                    return View(r);
-                }
-
-                
 
                 var restaurantEntity = new Restaurant
                 {
                     Name = r.Name,
-                    RestauranEmail = r.RestauranEmail,
+                    RestauranEmail = r.Email,
                     Password = r.Password,
-                    ConfirmPass = r.ConfirmPass
+                    ConfirmPass = r.Password
                 };
 
-                var ngoEntity = new NGO
+                var regestrationEntity = new Regestration
                 {
                     Name = r.Name,
-                    Email = r.RestauranEmail,
+                    Email = r.Email,
                     Password = r.Password,
-                    ConfirmPass = r.ConfirmPass,
-                    Role = "restaurant"
+                    Role = r.Role
                 };
 
                 db.Restaurants.Add(restaurantEntity);
-                db.NGOs.Add(ngoEntity);
+                db.SaveChanges();
 
+                db.Regestrations.Add(regestrationEntity);
                 db.SaveChanges();
 
                 return RedirectToAction("Index", "Home");
@@ -101,30 +94,31 @@ namespace Z_Hunger.Controllers
             return View(r);
         }
 
+        [RLogged]
+        [HttpGet]
+        public ActionResult CreateRequest()
+        {
+            return View();
+        }
 
-        //[HttpGet]
-        //public ActionResult CollectRequest()
-        //{
-        //    return View();
-        //}
+        [RLogged]
+        [HttpPost]
+        public ActionResult CreateRequest(string iName, string ct, string et, int resID)
+        {
+            var db = new ZeroHungerEntities1();
 
-        //[HttpPost]
-        //public ActionResult CollectRequest(string iName, DateTime ct, DateTime et)
-        //{
-        //    var db = new ZerooHungerEntities();
+            var cr = new CollectionRequest
+            {
+                IteamName = iName,
+                CreationTime = ct,
+                ExpiredTime = et,
+                RestaurantID = (int)Session["RestaurantEmail"],
+                Status = "Requesting"
+            };
 
-        //    var cr = new CollectionRequest
-        //    {
-        //        IteamName = iName,
-        //        CreationTime = ct,
-        //        ExpiredTime = et,
-        //        RestaurantID = Session[],
-        //        Status = "Pending"
-        //    };
-
-        //    //db.CollectionRequests.Add(cr);
-        //    return View();
-        //}
+            db.CollectionRequests.Add(cr);
+            return View();
+        }
 
     }
 }

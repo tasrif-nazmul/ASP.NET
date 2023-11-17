@@ -26,39 +26,65 @@ namespace Z_Hunger.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddEmployee(NGO n)
+        public ActionResult AddEmployee(Regestration r)
         {
             if (ModelState.IsValid)
             {
 
-                var db = new ZerooHungerEntities();
+                var db = new ZeroHungerEntities1();
 
-                if (db.NGOs.Any(e => e.Email == n.Email))
+                if (db.Regestrations.Any(e => e.Email == r.Email))
                 {
                     ModelState.AddModelError("Email", "This Email already used, try another email");
-                    return View(n);
+                    return View(r);
                 }
-
-                if (n.Password != n.ConfirmPass)
-                {
-                    ModelState.AddModelError("ConfirmPass", "Must same as Password");
-                    return View(n);
-                }
-
 
                 
 
-                db.NGOs.Add(n);
-                db.SaveChanges();
-                //return View(n);
+                if (r.Role == "admin")
+                {
+                    var NGOEntity = new NGO
+                    {
+                        Name = r.Name,
+                        Email = r.Email,
+                        Password = r.Password,
+                        Role = r.Role
+                    };
+                    db.NGOs.Add(NGOEntity);
+                    db.SaveChanges();
+                }
+                else if (r.Role == "employee")
+                {
+                    var EmployeeEntity = new Employee
+                    {
+                        Name = r.Name,
+                        Email = r.Email,
+                        Password = r.Password,
+                        Role = r.Role
+                    };
+                    db.Employees.Add(EmployeeEntity);
+                    db.SaveChanges();
+                }
+
+                var RegestrationEntity = new Regestration
+                {
+                    Name = r.Name,
+                    Email = r.Email,
+                    Password = r.Password,
+                    Role = r.Role
+                };
+                db.Regestrations.Add(RegestrationEntity);
+                db.SaveChanges ();
                 return RedirectToAction("Index");
+
             }
 
             else
             {
                 ModelState.AddModelError("", "Please fill in all required fields.");
+                return View(r);
             }
-            return View(n);
+            //return View(r);
         }
 
         public ActionResult Employee()

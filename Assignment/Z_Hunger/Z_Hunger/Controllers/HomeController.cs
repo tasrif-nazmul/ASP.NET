@@ -25,13 +25,13 @@ namespace Z_Hunger.Controllers
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
-            var db = new ZerooHungerEntities();
-            var matchs = db.NGOs.FirstOrDefault(u => u.Email == email && u.Password == password);
+            var db = new ZeroHungerEntities1();
+            var matchs = db.Regestrations.FirstOrDefault(u => u.Email == email && u.Password == password);
             if (matchs != null)
             {
                 
 
-                if (matchs.Role == "user")
+                if (matchs.Role == "employee")
                 {
                     Session["email"] = email;
                     return RedirectToAction("Employee", "NGO");

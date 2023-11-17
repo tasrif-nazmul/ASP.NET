@@ -16,9 +16,12 @@ namespace Z_Hunger.EF
     {
         public int CollectedID { get; set; }
         public int CollectionRequestID { get; set; }
-        public int NGOID { get; set; }
+        public int RestaurantID { get; set; }
+        public int EmployeeID { get; set; }
+        public string Details { get; set; }
     
         public virtual CollectionRequest CollectionRequest { get; set; }
-        public virtual NGO NGO { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Restaurant Restaurant { get; set; }
     }
 }

@@ -4,14 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ZerooHungerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ZeroHungerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Collecteds">
           <Key>
             <PropertyRef Name="CollectedID" />
           </Key>
           <Property Name="CollectedID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CollectionRequestID" Type="int" Nullable="false" />
-          <Property Name="NGOID" Type="int" Nullable="false" />
+          <Property Name="RestaurantID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="Details" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="CollectionRequests">
           <Key>
@@ -19,20 +21,40 @@
           </Key>
           <Property Name="CollectionRequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IteamName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CreationTime" Type="date" Nullable="false" />
-          <Property Name="ExpiredTime" Type="date" Nullable="false" />
+          <Property Name="CreationTime" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ExpiredTime" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="RestaurantID" Type="int" Nullable="false" />
-          <Property Name="Status" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" />
         </EntityType>
-        <EntityType Name="NGOs">
+        <EntityType Name="Employees">
           <Key>
-            <PropertyRef Name="NGOiD" />
+            <PropertyRef Name="EmployeeID" />
           </Key>
-          <Property Name="NGOiD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ConfirmPass" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NGOs">
+          <Key>
+            <PropertyRef Name="NGOid" />
+          </Key>
+          <Property Name="NGOid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Regestrations">
+          <Key>
+            <PropertyRef Name="RegestrationID" />
+          </Key>
+          <Property Name="RegestrationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Restaurants">
@@ -57,15 +79,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Collecteds_NGOs">
-          <End Role="NGOs" Type="Self.NGOs" Multiplicity="1" />
+        <Association Name="FK_Collecteds_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
           <End Role="Collecteds" Type="Self.Collecteds" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="NGOs">
-              <PropertyRef Name="NGOiD" />
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
             </Principal>
             <Dependent Role="Collecteds">
-              <PropertyRef Name="NGOID" />
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Collecteds_Restaurants">
+          <End Role="Restaurants" Type="Self.Restaurants" Multiplicity="1" />
+          <End Role="Collecteds" Type="Self.Collecteds" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurants">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="Collecteds">
+              <PropertyRef Name="RestaurantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectionRequests_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="CollectionRequests" Type="Self.CollectionRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="CollectionRequests">
+              <PropertyRef Name="EmployeeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -81,18 +127,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ZerooHungerModelStoreContainer">
+        <EntityContainer Name="ZeroHungerModelStoreContainer">
           <EntitySet Name="Collecteds" EntityType="Self.Collecteds" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CollectionRequests" EntityType="Self.CollectionRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NGOs" EntityType="Self.NGOs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Regestrations" EntityType="Self.Regestrations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Restaurants" EntityType="Self.Restaurants" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Collecteds_CollectionRequests" Association="Self.FK_Collecteds_CollectionRequests">
             <End Role="CollectionRequests" EntitySet="CollectionRequests" />
             <End Role="Collecteds" EntitySet="Collecteds" />
           </AssociationSet>
-          <AssociationSet Name="FK_Collecteds_NGOs" Association="Self.FK_Collecteds_NGOs">
-            <End Role="NGOs" EntitySet="NGOs" />
+          <AssociationSet Name="FK_Collecteds_Employees" Association="Self.FK_Collecteds_Employees">
+            <End Role="Employees" EntitySet="Employees" />
             <End Role="Collecteds" EntitySet="Collecteds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Collecteds_Restaurants" Association="Self.FK_Collecteds_Restaurants">
+            <End Role="Restaurants" EntitySet="Restaurants" />
+            <End Role="Collecteds" EntitySet="Collecteds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectionRequests_Employees" Association="Self.FK_CollectionRequests_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="CollectionRequests" EntitySet="CollectionRequests" />
           </AssociationSet>
           <AssociationSet Name="FK_CollectionRequests_Restaurants" Association="Self.FK_CollectionRequests_Restaurants">
             <End Role="Restaurants" EntitySet="Restaurants" />
@@ -102,16 +158,19 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ZerooHungerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="ZeroHungerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Collected">
           <Key>
             <PropertyRef Name="CollectedID" />
           </Key>
           <Property Name="CollectedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CollectionRequestID" Type="Int32" Nullable="false" />
-          <Property Name="NGOID" Type="Int32" Nullable="false" />
+          <Property Name="RestaurantID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Details" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CollectionRequest" Relationship="Self.FK_Collecteds_CollectionRequests" FromRole="Collecteds" ToRole="CollectionRequests" />
-          <NavigationProperty Name="NGO" Relationship="Self.FK_Collecteds_NGOs" FromRole="Collecteds" ToRole="NGOs" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Collecteds_Employees" FromRole="Collecteds" ToRole="Employees" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.FK_Collecteds_Restaurants" FromRole="Collecteds" ToRole="Restaurants" />
         </EntityType>
         <EntityType Name="CollectionRequest">
           <Key>
@@ -119,24 +178,46 @@
           </Key>
           <Property Name="CollectionRequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IteamName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ExpiredTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreationTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ExpiredTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="RestaurantID" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" />
           <NavigationProperty Name="Collecteds" Relationship="Self.FK_Collecteds_CollectionRequests" FromRole="CollectionRequests" ToRole="Collecteds" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_CollectionRequests_Employees" FromRole="CollectionRequests" ToRole="Employees" />
           <NavigationProperty Name="Restaurant" Relationship="Self.FK_CollectionRequests_Restaurants" FromRole="CollectionRequests" ToRole="Restaurants" />
         </EntityType>
-        <EntityType Name="NGO">
+        <EntityType Name="Employee">
           <Key>
-            <PropertyRef Name="NGOiD" />
+            <PropertyRef Name="EmployeeID" />
           </Key>
-          <Property Name="NGOiD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ConfirmPass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Collecteds" Relationship="Self.FK_Collecteds_Employees" FromRole="Employees" ToRole="Collecteds" />
+          <NavigationProperty Name="CollectionRequests" Relationship="Self.FK_CollectionRequests_Employees" FromRole="Employees" ToRole="CollectionRequests" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="NGO">
+          <Key>
+            <PropertyRef Name="NGOid" />
+          </Key>
+          <Property Name="NGOid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Regestration">
+          <Key>
+            <PropertyRef Name="RegestrationID" />
+          </Key>
+          <Property Name="RegestrationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Collecteds" Relationship="Self.FK_Collecteds_NGOs" FromRole="NGOs" ToRole="Collecteds" />
         </EntityType>
         <EntityType Name="Restaurant">
           <Key>
@@ -147,6 +228,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ConfirmPass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Collecteds" Relationship="Self.FK_Collecteds_Restaurants" FromRole="Restaurants" ToRole="Collecteds" />
           <NavigationProperty Name="CollectionRequests" Relationship="Self.FK_CollectionRequests_Restaurants" FromRole="Restaurants" ToRole="CollectionRequests" />
         </EntityType>
         <Association Name="FK_Collecteds_CollectionRequests">
@@ -161,15 +243,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Collecteds_NGOs">
-          <End Role="NGOs" Type="Self.NGO" Multiplicity="1" />
+        <Association Name="FK_Collecteds_Employees">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
           <End Role="Collecteds" Type="Self.Collected" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="NGOs">
-              <PropertyRef Name="NGOiD" />
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
             </Principal>
             <Dependent Role="Collecteds">
-              <PropertyRef Name="NGOID" />
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Collecteds_Restaurants">
+          <End Role="Restaurants" Type="Self.Restaurant" Multiplicity="1" />
+          <End Role="Collecteds" Type="Self.Collected" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurants">
+              <PropertyRef Name="RestaurantID" />
+            </Principal>
+            <Dependent Role="Collecteds">
+              <PropertyRef Name="RestaurantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CollectionRequests_Employees">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="CollectionRequests" Type="Self.CollectionRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="CollectionRequests">
+              <PropertyRef Name="EmployeeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -185,18 +291,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ZerooHungerEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ZeroHungerEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Collecteds" EntityType="Self.Collected" />
           <EntitySet Name="CollectionRequests" EntityType="Self.CollectionRequest" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="NGOs" EntityType="Self.NGO" />
+          <EntitySet Name="Regestrations" EntityType="Self.Regestration" />
           <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
           <AssociationSet Name="FK_Collecteds_CollectionRequests" Association="Self.FK_Collecteds_CollectionRequests">
             <End Role="CollectionRequests" EntitySet="CollectionRequests" />
             <End Role="Collecteds" EntitySet="Collecteds" />
           </AssociationSet>
-          <AssociationSet Name="FK_Collecteds_NGOs" Association="Self.FK_Collecteds_NGOs">
-            <End Role="NGOs" EntitySet="NGOs" />
+          <AssociationSet Name="FK_Collecteds_Employees" Association="Self.FK_Collecteds_Employees">
+            <End Role="Employees" EntitySet="Employees" />
             <End Role="Collecteds" EntitySet="Collecteds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Collecteds_Restaurants" Association="Self.FK_Collecteds_Restaurants">
+            <End Role="Restaurants" EntitySet="Restaurants" />
+            <End Role="Collecteds" EntitySet="Collecteds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CollectionRequests_Employees" Association="Self.FK_CollectionRequests_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="CollectionRequests" EntitySet="CollectionRequests" />
           </AssociationSet>
           <AssociationSet Name="FK_CollectionRequests_Restaurants" Association="Self.FK_CollectionRequests_Restaurants">
             <End Role="Restaurants" EntitySet="Restaurants" />
@@ -208,18 +324,20 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ZerooHungerModelStoreContainer" CdmEntityContainer="ZerooHungerEntities">
+        <EntityContainerMapping StorageEntityContainer="ZeroHungerModelStoreContainer" CdmEntityContainer="ZeroHungerEntities1">
           <EntitySetMapping Name="Collecteds">
-            <EntityTypeMapping TypeName="ZerooHungerModel.Collected">
+            <EntityTypeMapping TypeName="ZeroHungerModel.Collected">
               <MappingFragment StoreEntitySet="Collecteds">
                 <ScalarProperty Name="CollectedID" ColumnName="CollectedID" />
                 <ScalarProperty Name="CollectionRequestID" ColumnName="CollectionRequestID" />
-                <ScalarProperty Name="NGOID" ColumnName="NGOID" />
+                <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CollectionRequests">
-            <EntityTypeMapping TypeName="ZerooHungerModel.CollectionRequest">
+            <EntityTypeMapping TypeName="ZeroHungerModel.CollectionRequest">
               <MappingFragment StoreEntitySet="CollectionRequests">
                 <ScalarProperty Name="CollectionRequestID" ColumnName="CollectionRequestID" />
                 <ScalarProperty Name="IteamName" ColumnName="IteamName" />
@@ -227,23 +345,45 @@
                 <ScalarProperty Name="ExpiredTime" ColumnName="ExpiredTime" />
                 <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="ZeroHungerModel.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NGOs">
-            <EntityTypeMapping TypeName="ZerooHungerModel.NGO">
+            <EntityTypeMapping TypeName="ZeroHungerModel.NGO">
               <MappingFragment StoreEntitySet="NGOs">
-                <ScalarProperty Name="NGOiD" ColumnName="NGOiD" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="NGOid" ColumnName="NGOid" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="ConfirmPass" ColumnName="ConfirmPass" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regestrations">
+            <EntityTypeMapping TypeName="ZeroHungerModel.Regestration">
+              <MappingFragment StoreEntitySet="Regestrations">
+                <ScalarProperty Name="RegestrationID" ColumnName="RegestrationID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Restaurants">
-            <EntityTypeMapping TypeName="ZerooHungerModel.Restaurant">
+            <EntityTypeMapping TypeName="ZeroHungerModel.Restaurant">
               <MappingFragment StoreEntitySet="Restaurants">
                 <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
                 <ScalarProperty Name="RestauranEmail" ColumnName="RestauranEmail" />

@@ -134,31 +134,37 @@
     <Compile Include="Controllers\NGOController.cs" />
     <Compile Include="Controllers\RestaurantController.cs" />
     <Compile Include="EF\Collected.cs">
-      <DependentUpon>Z_Hunger.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\CollectionRequest.cs">
-      <DependentUpon>Z_Hunger.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Employee.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="EF\NGO.cs">
-      <DependentUpon>Z_Hunger.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\Regestration.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\Restaurant.cs">
-      <DependentUpon>Z_Hunger.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\Z_Hunger.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Z_Hunger.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\Z_Hunger.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Z_Hunger.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\Z_Hunger.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Z_Hunger.edmx</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -182,15 +188,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="EF\Z_Hunger.Context.tt">
+    <Content Include="EF\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Z_Hunger.Context.cs</LastGenOutput>
-      <DependentUpon>Z_Hunger.edmx</DependentUpon>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="EF\Z_Hunger.tt">
+    <Content Include="EF\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Z_Hunger.edmx</DependentUpon>
-      <LastGenOutput>Z_Hunger.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -201,12 +207,12 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="EF\Z_Hunger.edmx">
+    <EntityDeploy Include="EF\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Z_Hunger.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="EF\Z_Hunger.edmx.diagram">
-      <DependentUpon>Z_Hunger.edmx</DependentUpon>
+    <Content Include="EF\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -237,6 +243,7 @@
     <Content Include="Views\NGO\Employee.cshtml" />
     <Content Include="Views\Restaurant\RegesterRestaurant.cshtml" />
     <Content Include="Views\Restaurant\Index.cshtml" />
+    <Content Include="Views\Restaurant\CreateRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

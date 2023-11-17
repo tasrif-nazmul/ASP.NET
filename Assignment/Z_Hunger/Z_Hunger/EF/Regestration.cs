@@ -13,9 +13,9 @@ namespace Z_Hunger.EF
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public partial class NGO
+    public partial class Regestration
     {
-        public int NGOid { get; set; }
+        public int RegestrationID { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

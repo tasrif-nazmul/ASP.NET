@@ -48,6 +48,7 @@ namespace Z_Hunger.Controllers
                     Session["RestaurantEmail"] = email;
                     int restaurantID = db.Restaurants.Where(u => u.RestauranEmail == email).SingleOrDefault().RestaurantID;
                     Session["RestaurantID"] = restaurantID;
+                    Session["RestaurantID"] = restaurantID;
                     return RedirectToAction("Index", "Restaurant");
                 }
                 return RedirectToAction("Login");

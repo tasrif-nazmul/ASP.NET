@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Z_Hunger.EF.CollectionRequest>
+
+@{
+    ViewBag.Title = "ViewRequest";
+}
+
+<h2>ViewRequest</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IteamName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpiredTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestaurantID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeID)
+        </th>
+        <th>
+            Add Employee
+        </th>
+        
+        <th>
+            Reject
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IteamName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreationTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpiredTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RestaurantID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CollectionRequestID })
+        </td>
+        <td>
+            @Html.ActionLink("Reject", "RejectRequest", new { id = item.CollectionRequestID })
+        </td>
+    </tr>
+}
+
+</table>

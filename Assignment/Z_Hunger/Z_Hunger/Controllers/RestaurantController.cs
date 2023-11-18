@@ -94,7 +94,7 @@ namespace Z_Hunger.Controllers
                     CreationTime = DateTime.Now.ToString(),
                     ExpiredTime = ExpiredTime,
                     RestaurantID = RestaurantID,
-                    Status = "requesting"
+                    Status = "Requesting"
                 };
 
                 db.CollectionRequests.Add(cr);

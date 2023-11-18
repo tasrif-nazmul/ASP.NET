@@ -91,5 +91,37 @@ namespace Z_Hunger.Controllers
         {
             return View();
         }
+
+
+        [Logged]
+        public ActionResult ViewRequest()
+        {
+            var db = new ZeroHungerEntities1();
+            //var data = db.CollectionRequests.ToList();
+            var data = db.CollectionRequests.Where(cr => cr.Status != "Rejected").ToList();
+            return View(data);
+        }
+        
+       
+        
+        [Logged]
+        [HttpGet]
+        public ActionResult RejectRequest(int id)
+        {
+            var db = new ZeroHungerEntities1();
+            var exStatus = db.CollectionRequests.FirstOrDefault(n=> n.CollectionRequestID == id);
+            return View(exStatus);
+        }
+        
+        [Logged]
+        [HttpPost]
+        public ActionResult RejectRequest(CollectionRequest cr)
+        {
+            var db = new ZeroHungerEntities1();
+            var exData = db.CollectionRequests.Find(cr.CollectionRequestID);
+            exData.Status = "Rejected";
+            db.SaveChanges();
+            return RedirectToAction("ViewRequest");
+        }
     }
 }

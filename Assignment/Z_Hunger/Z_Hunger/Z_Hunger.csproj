@@ -244,6 +244,8 @@
     <Content Include="Views\Restaurant\RegesterRestaurant.cshtml" />
     <Content Include="Views\Restaurant\Index.cshtml" />
     <Content Include="Views\Restaurant\CreateRequest.cshtml" />
+    <Content Include="Views\NGO\ViewRequest.cshtml" />
+    <Content Include="Views\NGO\RejectRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

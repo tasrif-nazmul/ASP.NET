@@ -46,6 +46,8 @@ namespace Z_Hunger.Controllers
                 else if (matchs.Role == "restaurant")
                 {
                     Session["RestaurantEmail"] = email;
+                    int restaurantID = db.Restaurants.Where(u => u.RestauranEmail == email).SingleOrDefault().RestaurantID;
+                    Session["RestaurantID"] = restaurantID;
                     return RedirectToAction("Index", "Restaurant");
                 }
                 return RedirectToAction("Login");

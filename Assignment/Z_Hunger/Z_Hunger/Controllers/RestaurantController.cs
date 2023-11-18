@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Z_Hunger.Auth;
@@ -23,30 +24,6 @@ namespace Z_Hunger.Controllers
             return View();
         }
 
-        /* [HttpPost]
-         public ActionResult RegesterRestaurant(Restaurant r)
-         {
-             if (ModelState.IsValid)
-             {
-
-                 if (r.Password != r.ConfirmPass)
-                 {
-                     ModelState.AddModelError("ConfirmPass", "Must same as Password");
-                     return View(r);
-                 }
-
-                 var db = new ZerooHungerEntities();
-                 db.Restaurants.Add(r);
-                 db.SaveChanges();
-                 return RedirectToAction("Index","Home");
-             }
-
-             else
-             {
-                 ModelState.AddModelError("", "Please fill in all required fields.");
-             }
-             return View(r);
-         }*/
 
         [HttpPost]
         public ActionResult RegesterRestaurant(Regestration r)
@@ -103,21 +80,35 @@ namespace Z_Hunger.Controllers
 
         [RLogged]
         [HttpPost]
-        public ActionResult CreateRequest(string iName, string ct, string et, int resID)
+        public ActionResult CreateRequest(string IteamName, string ExpiredTime, string status)
         {
-            var db = new ZeroHungerEntities1();
-
-            var cr = new CollectionRequest
+            int RestaurantID = (int)Session["RestaurantID"];
+            if (ModelState.IsValid)
             {
-                IteamName = iName,
-                CreationTime = ct,
-                ExpiredTime = et,
-                RestaurantID = (int)Session["RestaurantEmail"],
-                Status = "Requesting"
-            };
 
-            db.CollectionRequests.Add(cr);
-            return View();
+                var db = new ZeroHungerEntities1();
+
+                var cr = new CollectionRequest
+                {
+                    IteamName = IteamName,
+                    CreationTime = DateTime.Now.ToString(),
+                    ExpiredTime = ExpiredTime,
+                    RestaurantID = RestaurantID,
+                    Status = "requesting"
+                };
+
+                db.CollectionRequests.Add(cr);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+
+            else
+            {
+                ModelState.AddModelError("", "Please fill in all required fields.");
+                return View();
+            }
+
         }
 
     }

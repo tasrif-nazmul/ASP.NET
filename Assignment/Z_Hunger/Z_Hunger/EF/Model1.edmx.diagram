@@ -5,12 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="bb2245ee5ff0422282715934bd162afc" Name="Diagram1">
-        <EntityTypeShape EntityType="ZeroHungerModel.Collected" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ZeroHungerModel.CollectionRequest" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ZeroHungerModel.Employee" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ZeroHungerModel.NGO" Width="1.5" PointX="0.75" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ZeroHungerModel.Regestration" Width="1.5" PointX="2.75" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ZeroHungerModel.Restaurant" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZeroHungerModel.Collected" Width="1.5" PointX="5.125" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZeroHungerModel.CollectionRequest" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZeroHungerModel.Employee" Width="1.5" PointX="2.5" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZeroHungerModel.NGO" Width="1.5" PointX="8.875" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZeroHungerModel.Regestration" Width="1.5" PointX="10.875" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ZeroHungerModel.Restaurant" Width="1.5" PointX="7.625" PointY="7.5" IsExpanded="true" />
         <AssociationConnector Association="ZeroHungerModel.FK_Collecteds_CollectionRequests" ManuallyRouted="false" />
         <AssociationConnector Association="ZeroHungerModel.FK_Collecteds_Employees" ManuallyRouted="false" />
         <AssociationConnector Association="ZeroHungerModel.FK_Collecteds_Restaurants" ManuallyRouted="false" />

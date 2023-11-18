@@ -28,7 +28,7 @@ namespace Z_Hunger.EF
         public string CreationTime { get; set; }
         [Required]
         public string ExpiredTime { get; set; }
-        [Required]
+      
         public int RestaurantID { get; set; }
         [Required]
         public string Status { get; set; }

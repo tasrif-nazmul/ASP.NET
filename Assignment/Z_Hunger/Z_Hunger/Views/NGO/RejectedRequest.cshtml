@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Z_Hunger.EF.CollectionRequest>
+
+@{
+    ViewBag.Title = "RejectedRequest";
+}
+
+<h2>RejectedRequest</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IteamName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.RestaurantID)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IteamName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.RestaurantID)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+    </tr>
+}
+
+</table>

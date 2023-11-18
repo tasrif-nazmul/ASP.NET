@@ -97,7 +97,6 @@ namespace Z_Hunger.Controllers
         public ActionResult ViewRequest()
         {
             var db = new ZeroHungerEntities1();
-            //var data = db.CollectionRequests.ToList();
             var data = db.CollectionRequests.Where(cr => cr.Status != "Rejected").ToList();
             return View(data);
         }
@@ -120,6 +119,37 @@ namespace Z_Hunger.Controllers
             var db = new ZeroHungerEntities1();
             var exData = db.CollectionRequests.Find(cr.CollectionRequestID);
             exData.Status = "Rejected";
+            db.SaveChanges();
+            return RedirectToAction("ViewRequest");
+        }
+
+
+
+        //trash
+        public ActionResult RejectedRequest()
+        {
+            var db = new ZeroHungerEntities1();
+            var data = db.CollectionRequests.Where(cr => cr.Status == "Rejected").ToList();
+            return View(data);    
+        }
+
+        [Logged]
+        [HttpGet]
+        public ActionResult AcceptRequest(int id)
+        {
+            var db = new ZeroHungerEntities1();
+            var ExData = db.CollectionRequests.FirstOrDefault(n => n.CollectionRequestID == id);
+            return View(ExData);
+        }
+
+        [Logged]
+        [HttpPost]
+        public ActionResult AcceptRequest(CollectionRequest cr)
+        {
+            var db = new ZeroHungerEntities1();
+            var exData = db.CollectionRequests.Find(cr.CollectionRequestID);
+            exData.Status = "Processing";
+            exData.EmployeeID = cr.EmployeeID;
             db.SaveChanges();
             return RedirectToAction("ViewRequest");
         }

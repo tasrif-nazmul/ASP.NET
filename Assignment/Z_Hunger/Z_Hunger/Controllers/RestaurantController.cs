@@ -111,5 +111,16 @@ namespace Z_Hunger.Controllers
 
         }
 
+
+        [RLogged]
+        public ActionResult CreatedRequest()
+        {
+            int RestaurantID = (int)Session["RestaurantID"];
+            var db = new ZeroHungerEntities1();
+            var data = db.CollectionRequests.Where(cr=> cr.RestaurantID == RestaurantID).ToList();
+            db.SaveChanges();
+            return View(data);
+        }
+
     }
 }

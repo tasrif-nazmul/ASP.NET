@@ -1,0 +1,24 @@
+﻿@model Z_Hunger.EF.CollectionRequest
+@{
+    ViewBag.Title = "AcceptRequest";
+}
+
+<h2>AcceptRequest</h2>
+<span>Send request to an Employee for collect food from Restaurant**</span>
+<br />
+<br />
+
+<form method="post">
+    <input type="hidden" name="CollectionRequestID" value="@Model.CollectionRequestID" />
+    <input type="hidden" name="IteamName" value="@Model.IteamName" />
+    <input type="hidden" name="CreationTime" value="@Model.CreationTime" />
+    <input type="hidden" name="ExpiredTime" value="@Model.ExpiredTime" />
+    <input type="hidden" name="RestaurantID" value="@Model.RestaurantID" />
+    <input type="hidden" name="Status" value="@Model.Status"/>
+
+    <label>Employee ID</label>
+
+    <input type="number" name="EmployeeID" class="form-control"/>
+    <input type="submit" value="Accept" class="btn btn-danger" />
+    <a href="/ngo/viewRequest" class="btn btn-primary">Cancel</a>
+</form>

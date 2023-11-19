@@ -33,8 +33,10 @@ namespace Z_Hunger.Controllers
 
                 if (matchs.Role == "employee")
                 {
-                    Session["email"] = email;
-                    return RedirectToAction("Employee", "NGO");
+                    Session["EmployeeEmail"] = email;
+                    int EmployeeID = db.Employees.Where(u => u.Email == email).SingleOrDefault().EmployeeID;
+                    Session["EmployeeID"] = EmployeeID;
+                    return RedirectToAction("Index", "Employee");
                 }
 
                 else if (matchs.Role == "admin")

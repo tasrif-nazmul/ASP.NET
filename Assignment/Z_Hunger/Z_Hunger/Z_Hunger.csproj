@@ -235,14 +235,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_RestaurantL.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\NGO\Index.cshtml" />
     <Content Include="Views\NGO\AddEmployee.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\NGO\Employee.cshtml" />
     <Content Include="Views\Restaurant\RegesterRestaurant.cshtml" />
     <Content Include="Views\Restaurant\Index.cshtml" />
     <Content Include="Views\Restaurant\CreateRequest.cshtml" />
@@ -252,6 +250,14 @@
     <Content Include="Views\NGO\AcceptRequest.cshtml" />
     <Content Include="Views\Restaurant\CreatedRequest.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Employee\AcceptRequest.cshtml" />
+    <Content Include="Views\Employee\CompletedRequest.cshtml" />
+    <Content Include="Views\Employee\Logout.cshtml" />
+    <Content Include="Views\Shared\_EmployeeL.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_NGOL.cshtml" />
+    <Content Include="Views\Restaurant\Logout.cshtml" />
+    <Content Include="Views\NGO\Logout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

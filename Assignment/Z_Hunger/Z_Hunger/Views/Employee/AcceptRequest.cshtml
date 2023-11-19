@@ -1,11 +1,12 @@
 ﻿@model Z_Hunger.EF.CollectionRequest
 @{
-    Layout = "~/Views/Shared/_NGOL.cshtml";
+    //Layout = "~/Views/Shared/_Employee.cshtml";
     ViewBag.Title = "AcceptRequest";
 }
 
 <h2>AcceptRequest</h2>
-<span>Send request to an Employee for collect food from Restaurant**</span>
+<span>If you already received Food from Restaurant,</span>
+<span>then press Accept to complete your job</span>
 <br />
 <br />
 
@@ -15,11 +16,8 @@
     <input type="hidden" name="CreationTime" value="@Model.CreationTime" />
     <input type="hidden" name="ExpiredTime" value="@Model.ExpiredTime" />
     <input type="hidden" name="RestaurantID" value="@Model.RestaurantID" />
-    <input type="hidden" name="Status" value="@Model.Status"/>
-
-    <label>Employee ID</label>
-
-    <input type="number" name="EmployeeID" class="form-control"/>
+    <input type="hidden" name="Status" value="@Model.Status" />
+    <input type="hidden" name="EmployeeID" value="@Model.EmployeeID"/>
     <input type="submit" value="Accept" class="btn btn-danger" />
-    <a href="/ngo/viewRequest" class="btn btn-primary">Cancel</a>
+    <a href="/Employee/Index" class="btn btn-primary">Cancel</a>
 </form>

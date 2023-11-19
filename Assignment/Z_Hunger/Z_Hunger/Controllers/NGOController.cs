@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using System.Web.Security;
 using Z_Hunger.Auth;
 using Z_Hunger.EF;
 
@@ -25,6 +26,7 @@ namespace Z_Hunger.Controllers
             return View();
         }
 
+        [Logged]
         [HttpPost]
         public ActionResult AddEmployee(Regestration r)
         {
@@ -87,11 +89,6 @@ namespace Z_Hunger.Controllers
             //return View(r);
         }
 
-        public ActionResult Employee()
-        {
-            return View();
-        }
-
 
         [Logged]
         public ActionResult ViewRequest()
@@ -126,6 +123,7 @@ namespace Z_Hunger.Controllers
 
 
         //trash
+        [Logged]
         public ActionResult RejectedRequest()
         {
             var db = new ZeroHungerEntities1();
@@ -152,6 +150,14 @@ namespace Z_Hunger.Controllers
             exData.EmployeeID = cr.EmployeeID;
             db.SaveChanges();
             return RedirectToAction("ViewRequest");
+        }
+
+        [Logged]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            Session.Clear();
+            return RedirectToAction("Login", "Home");
         }
     }
 }

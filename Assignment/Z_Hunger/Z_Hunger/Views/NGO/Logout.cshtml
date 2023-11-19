@@ -1,0 +1,13 @@
+﻿@{
+    Layout = "~/Views/Shared/_NGOL.cshtml";
+    ViewBag.Title = "Logout";
+}
+
+<h2>Logout</h2>
+
+<p>Are you sure you want to log out?</p>
+
+<form method="post" id="logoutForm">
+    @Html.AntiForgeryToken()
+    <button type="submit">Logout</button>
+</form>

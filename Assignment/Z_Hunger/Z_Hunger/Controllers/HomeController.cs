@@ -29,27 +29,27 @@ namespace Z_Hunger.Controllers
             var matchs = db.Regestrations.FirstOrDefault(u => u.Email == email && u.Password == password);
             if (matchs != null)
             {
-                
 
-                if (matchs.Role == "employee")
+                if (matchs.Role == "admin")
                 {
-                    Session["EmployeeEmail"] = email;
-                    int EmployeeID = db.Employees.Where(u => u.Email == email).SingleOrDefault().EmployeeID;
-                    Session["EmployeeID"] = EmployeeID;
-                    return RedirectToAction("Index", "Employee");
+                    Session["Email"] = email;
+                    int NGOid = db.NGOs.Where(n => n.Email == email).SingleOrDefault().NGOid;
+                    Session["NGOid"] = NGOid;
+                    return RedirectToAction("Index", "NGO");
                 }
 
-                else if (matchs.Role == "admin")
+                else if (matchs.Role == "employee")
                 {
-                    Session["email"] = email;
-                    return RedirectToAction("Index", "NGO");
+                    Session["EmployeeEmail"] = email;
+                    int EmployeeID = db.Employees.Where(e => e.Email == email).SingleOrDefault().EmployeeID;
+                    Session["EmployeeID"] = EmployeeID;
+                    return RedirectToAction("Index", "Employee");
                 }
                 
                 else if (matchs.Role == "restaurant")
                 {
                     Session["RestaurantEmail"] = email;
-                    int restaurantID = db.Restaurants.Where(u => u.RestauranEmail == email).SingleOrDefault().RestaurantID;
-                    Session["RestaurantID"] = restaurantID;
+                    int restaurantID = db.Restaurants.Where(r => r.RestauranEmail == email).SingleOrDefault().RestaurantID;
                     Session["RestaurantID"] = restaurantID;
                     return RedirectToAction("Index", "Restaurant");
                 }

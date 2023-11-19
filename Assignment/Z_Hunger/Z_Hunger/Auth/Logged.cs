@@ -10,7 +10,7 @@ namespace Z_Hunger.Auth
     {
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            if (httpContext.Session["email"] != null)
+            if (httpContext.Session["Email"] != null)
             {
                 return true;
             }

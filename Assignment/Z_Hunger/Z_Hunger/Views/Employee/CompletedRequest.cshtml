@@ -1,12 +1,11 @@
 ﻿@model IEnumerable<Z_Hunger.EF.CollectionRequest>
 
 @{
-    Layout = "~/Views/Shared/_NGOL.cshtml";
-    ViewBag.Title = "ViewRequest";
+    Layout = "~/Views/Shared/_EmployeeL.cshtml";
+    ViewBag.Title = "CompletedRequest";
 }
 
-<h2>ViewRequest</h2>
-<a href="/ngo/index/" class="btn btn-danger">Back</a>
+<h2>CompletedRequest</h2>
 
 <table class="table">
     <tr>
@@ -24,16 +23,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmployeeID)
-        </th>
-        <th>
-            Add Employee
-        </th>
-        
-        <th>
-            Reject
         </th>
     </tr>
 
@@ -53,15 +42,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmployeeID)
-        </td>
-        <td>
-            @Html.ActionLink("Accept", "AcceptRequest", new { id=item.CollectionRequestID })
-        </td>
-        <td>
-            @Html.ActionLink("Reject", "RejectRequest", new { id = item.CollectionRequestID })
         </td>
     </tr>
 }

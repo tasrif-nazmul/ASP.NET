@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Z_Hunger.Auth;
 using Z_Hunger.EF;
 
@@ -17,14 +18,14 @@ namespace Z_Hunger.Controllers
             return View();
         }
 
-
+     
         [HttpGet]
         public ActionResult RegesterRestaurant()
         {
             return View();
         }
 
-
+       
         [HttpPost]
         public ActionResult RegesterRestaurant(Regestration r)
         {
@@ -120,6 +121,15 @@ namespace Z_Hunger.Controllers
             var data = db.CollectionRequests.Where(cr=> cr.RestaurantID == RestaurantID).ToList();
             db.SaveChanges();
             return View(data);
+        }
+
+
+        [RLogged]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            Session.Clear();
+            return RedirectToAction("Login", "Home");
         }
 
     }

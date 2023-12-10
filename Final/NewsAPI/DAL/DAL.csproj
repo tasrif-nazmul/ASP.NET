@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\CategoryRepo.cs" />
     <Compile Include="Repository\NewsRepo.cs" />
   </ItemGroup>
   <ItemGroup>

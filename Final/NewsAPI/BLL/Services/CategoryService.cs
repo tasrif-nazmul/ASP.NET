@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.DTOs;
+using DAL;
 using DAL.EF.Models;
 using DAL.Repository;
 using System;
@@ -14,7 +15,7 @@ namespace BLL.Services
     {
         public static List<CategoryDTO> Get()
         {
-            var data = CategoryRepo.Get();
+            var data = DataAccessFactory.CategoryData().Get();
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Category, CategoryDTO>();
@@ -26,7 +27,7 @@ namespace BLL.Services
 
         public static CategoryDTO Get(int id)
         {
-            var data = CategoryRepo.Get(id);
+            var data = DataAccessFactory.CategoryData().Get(id);
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Category, CategoryDTO>();
@@ -45,27 +46,27 @@ namespace BLL.Services
 
             var mapper = new Mapper(config);
             var data = mapper.Map<Category>(c);
-            return CategoryRepo.Add(data);
+            return DataAccessFactory.CategoryData().Add(data);
         }
 
-        public static bool Update(int id, CategoryDTO c)
+        public static bool Update(CategoryDTO c, int id)
         {
-            var exdata = CategoryRepo.Get(id);
+            var exdata = DataAccessFactory.CategoryData().Get(id);
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<CategoryDTO, Category>();
             });
 
             var mapper = new Mapper(config);
-            mapper.Map<Category>(c);
+            var data = mapper.Map<Category>(c);
             exdata.Name = c.Name;
-            return CategoryRepo.Update(exdata);
+            return DataAccessFactory.CategoryData().Update(data);
         }
 
 
         public static bool Delete(int id)
         {
-            return CategoryRepo.delete(id);
+            return DataAccessFactory.CategoryData().Delete(id);
         }
     }
 }

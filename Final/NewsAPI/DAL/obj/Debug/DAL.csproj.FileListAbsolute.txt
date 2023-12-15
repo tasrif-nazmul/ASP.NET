@@ -12,3 +12,4 @@ E:\Semester\Semester 11\Dot net\Project file\ASP.NET\Final\NewsAPI\DAL\obj\Debug
 E:\Semester\Semester 11\Dot net\Project file\ASP.NET\Final\NewsAPI\DAL\obj\Debug\DAL.pdb
 E:\Semester\Semester 11\Dot net\Project file\ASP.NET\Final\NewsAPI\DAL\obj\Debug\DAL.Migrations.initDb.resources
 E:\Semester\Semester 11\Dot net\Project file\ASP.NET\Final\NewsAPI\DAL\obj\Debug\DAL.csproj.GenerateResource.cache
+E:\Semester\Semester 11\Dot net\Project file\ASP.NET\Final\NewsAPI\DAL\obj\Debug\DAL.Migrations.UserAdded.resources

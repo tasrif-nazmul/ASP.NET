@@ -1,5 +1,6 @@
 ﻿using DAL.EF;
 using DAL.EF.Models;
+using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
@@ -9,41 +10,39 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository
 {
-    public class CategoryRepo
+    internal class CategoryRepo : Repo, IRepo<Category, int, bool>
     {
-        public static List<Category> Get()
+        public bool Add(Category obj)
         {
-            var db = new NewsContext();
-            return db.Categories.ToList();
+            db.Categories.Add(obj);
+            return db.SaveChanges() > 0;
         }
 
-        public static Category Get(int id)
+        public bool Delete(int id)
         {
-            var db = new NewsContext();
+            var data = db.Categories.Find(id);
+            db.Categories.Remove(data);
+            return db.SaveChanges() > 0;    
+        }
+
+        public List<Category> Get()
+        {
+            return db.Categories.ToList();
+
+        }
+
+        public Category Get(int id)
+        {
             var data = db.Categories.Find(id);
             return data;
         }
 
-        public static bool Add(Category c)
+        public bool Update(Category obj)
         {
-            var db = new NewsContext();
-            db.Categories.Add(c);
+            //var data = Get(obj.Id);
+            //db.Entry(data).CurrentValues.SetValues(obj);
+            db.Categories.AddOrUpdate(obj);
             return db.SaveChanges() > 0;
-        }
-
-        public static bool Update(Category c)
-        {
-            var db = new NewsContext();
-            db.Categories.AddOrUpdate(c);
-            return db.SaveChanges() > 0;
-        }
-
-        public static bool delete(int id)
-        {
-            var db = new NewsContext();
-            var data = db.Categories.Find(id);
-            db.Categories.Remove(data);
-            return db.SaveChanges() > 0;    
         }
     }
 }

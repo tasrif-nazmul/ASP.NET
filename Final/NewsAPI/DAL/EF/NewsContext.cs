@@ -12,5 +12,6 @@ namespace DAL.EF
     {
         public DbSet<News> Newses { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

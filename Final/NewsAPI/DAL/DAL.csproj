@@ -52,17 +52,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DataAccessFactory.cs" />
     <Compile Include="EF\Models\Category.cs" />
     <Compile Include="EF\Models\News.cs" />
+    <Compile Include="EF\Models\User.cs" />
     <Compile Include="EF\NewsContext.cs" />
+    <Compile Include="Interfaces\IRepo.cs" />
+    <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Migrations\202312081616358_initDb.cs" />
     <Compile Include="Migrations\202312081616358_initDb.designer.cs">
       <DependentUpon>202312081616358_initDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202312142027371_UserAdded.cs" />
+    <Compile Include="Migrations\202312142027371_UserAdded.designer.cs">
+      <DependentUpon>202312142027371_UserAdded.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CategoryRepo.cs" />
     <Compile Include="Repository\NewsRepo.cs" />
+    <Compile Include="Repository\Repo.cs" />
+    <Compile Include="Repository\UserRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -71,6 +81,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202312081616358_initDb.resx">
       <DependentUpon>202312081616358_initDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202312142027371_UserAdded.resx">
+      <DependentUpon>202312142027371_UserAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

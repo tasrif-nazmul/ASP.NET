@@ -1,5 +1,6 @@
 ﻿using DAL.EF;
 using DAL.EF.Models;
+using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
@@ -9,40 +10,34 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository
 {
-    public class NewsRepo
+    internal class NewsRepo : Repo, IRepo<News, int, bool>
     {
-        public static bool Add(News n)
+        public bool Add(News obj)
         {
-            var db = new NewsContext();
-            db.Newses.Add(n);
+            db.Newses.Add(obj);
             return db.SaveChanges() > 0;
-
         }
 
-        public static List<News> Get()
+        public bool Delete(int id)
         {
-            var db = new NewsContext();
+            var data = db.Newses.Find(id);
+            db.Newses.Remove(data);
+            return db.SaveChanges() > 0;
+        }
+
+        public List<News> Get()
+        {
             return db.Newses.ToList();
         }
 
-        public static News Get(int id)
+        public News Get(int id)
         {
-            var db = new NewsContext();
             return db.Newses.Find(id);
         }
 
-        public static bool Update(News n)
+        public bool Update(News obj)
         {
-            var db = new NewsContext();
-            db.Newses.AddOrUpdate(n);
-            return db.SaveChanges() > 0;
-        }
-        
-        public static bool Delete(int id)
-        {
-            var db = new NewsContext();
-            var data = db.Newses.Find(id);
-            db.Newses.Remove(data);
+            db.Newses.AddOrUpdate(obj);
             return db.SaveChanges() > 0;
         }
     }

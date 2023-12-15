@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.DTOs;
+using DAL;
 using DAL.EF.Models;
 using DAL.Repository;
 using System;
@@ -14,7 +15,7 @@ namespace BLL.Services
     {
         public static List<NewsDTO> Get()
         {
-            var data = NewsRepo.Get();
+            var data = DataAccessFactory.NewsData().Get();
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<News, NewsDTO>();
@@ -26,7 +27,7 @@ namespace BLL.Services
 
         public static NewsDTO Get(int id)
         {
-            var data = NewsRepo.Get(id);
+            var data = DataAccessFactory.NewsData().Get(id);
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<News, NewsDTO>();
@@ -45,12 +46,12 @@ namespace BLL.Services
 
             var mapper = new Mapper(config);
             var data = mapper.Map<News>(n);
-            return NewsRepo.Add(data);
+            return DataAccessFactory.NewsData().Add(data);
         }
 
         public static bool Update(int id, NewsDTO n)
         {
-            var exdata = NewsRepo.Get(id);
+            var exdata = DataAccessFactory.NewsData().Get(id);
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<NewsDTO, News>();
@@ -58,12 +59,12 @@ namespace BLL.Services
             var mapper = new Mapper(config);
             mapper.Map<News>(n);
             exdata.Name = n.Name;
-            return NewsRepo.Update(exdata);
+            return DataAccessFactory.NewsData().Update(exdata);
         }
 
         public static bool Delete(int id)
         {
-            return NewsRepo.Delete(id);
+            return DataAccessFactory.NewsData().Delete(id);
             
         }
     }

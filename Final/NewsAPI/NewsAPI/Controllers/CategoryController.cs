@@ -65,7 +65,7 @@ namespace NewsAPI.Controllers
         {
             try
             {
-                CategoryService.Update(id, c);
+                CategoryService.Update(c, id);
                 return Request.CreateResponse(HttpStatusCode.OK, new { message = "Updated Successfully" });
 
             }

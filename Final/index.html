@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script>
+        function loadDoc()
+        {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function()
+            {
+                if(this.readyState == 4 && this.status == 200)
+                {
+                    var resp = this.responseText;
+                    var obj = JSON.parse(resp);
+                    document.getElementById("msg").innerHTML = obj.Msg;
+                }
+            };
+            xhr.open("GET", "https://localhost:44323/api/news/all", true);
+            xhr.send();
+        }
+    </script>
+
+    <title>Ajaxs</title>
+</head>
+<body>
+    <button onclick="loadDoc()">Click me</button>
+    <p id="msg"></p>
+</body>
+</html>

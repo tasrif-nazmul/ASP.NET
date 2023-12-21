@@ -6,12 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace NewsAPI.Controllers
 {
+    [EnableCors("*", "*", "*")] //perameter 1 -> Origin(website name) , 2 -> Header(JSON/Test etc), 3->Method(GET, Post)
     public class NewsController : ApiController
     {
-        [HttpPost]
+        [HttpGet]
         [Route("api/news/all")]
         public HttpResponseMessage Get()
         {
@@ -26,7 +28,7 @@ namespace NewsAPI.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("api/news/{id}")]
         public HttpResponseMessage Get(int id)
         {
@@ -50,7 +52,7 @@ namespace NewsAPI.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("api/news/create")]
         public HttpResponseMessage Create(NewsDTO n)
         {

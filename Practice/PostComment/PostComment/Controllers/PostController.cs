@@ -1,4 +1,5 @@
 ﻿using BLL.Services;
+using PostComment.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace PostComment.Controllers
             }
         }
 
+        
         [HttpGet]
         [Route("api/post/{id}")]
         public HttpResponseMessage Post(int id)
@@ -47,7 +49,8 @@ namespace PostComment.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, ex.Message);
             }
         }
-        
+
+        [Logged]
         [HttpGet]
         [Route("api/post/{id}/comments")]
         public HttpResponseMessage PostComments(int id)
